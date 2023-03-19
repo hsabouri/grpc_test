@@ -1,0 +1,39 @@
+syntax = "proto3";
+package database;
+
+service Database {
+	rpc GetUser (GetUserRequest) returns (UserReply);
+	rpc AddUser (AddUserRequest) returns (UserReply);
+    rpc AddTweet (AddTweetRequest) returns (TweetReply);
+    rpc GetLastTweetsOfUser (GetLastTweetsOfUserRequest) returns (MultiTweetReply);
+}
+
+message GetUserRequest {
+	int64 user_id = 1;
+}
+
+message AddUserRequest { }
+
+message UserReply {
+	int64 user_id = 1;
+	repeated int64 following = 2;
+}
+
+message AddTweetRequest {
+	int64 user_id = 1;
+    string content = 2;
+}
+
+message TweetReply {
+    int64 tweet_id = 1;
+    string content = 2;
+}
+
+message MultiTweetReply {
+    repeated TweetReply tweets = 1;
+}
+
+message GetLastTweetsOfUserRequest {
+    int64 user_id = 1;
+    int64 count = 2;
+}
